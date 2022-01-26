@@ -12,7 +12,6 @@ import com.example.not_bored.viewmodel.ActivityViewModel
 import java.util.*
 import androidx.navigation.fragment.findNavController
 
-
 class ActivitiesListFragment : Fragment(R.layout.fragment_activities_list),
     ActivityAdapter.OnActivityCLickListener {
     private lateinit var binding: FragmentActivitiesListBinding

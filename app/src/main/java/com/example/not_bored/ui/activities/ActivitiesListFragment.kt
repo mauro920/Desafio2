@@ -1,5 +1,5 @@
 package com.example.not_bored.ui.activities
-
+a
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.*

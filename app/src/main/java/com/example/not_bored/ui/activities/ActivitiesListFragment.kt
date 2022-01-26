@@ -11,7 +11,6 @@ import com.example.not_bored.ui.activities.adapters.ActivityAdapter
 import com.example.not_bored.viewmodel.ActivityViewModel
 import java.util.*
 import androidx.navigation.fragment.findNavController
-import com.example.not_bored.utils.ActivitiesList
 
 
 class ActivitiesListFragment : Fragment(R.layout.fragment_activities_list),

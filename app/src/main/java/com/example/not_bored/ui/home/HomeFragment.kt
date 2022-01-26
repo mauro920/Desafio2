@@ -6,12 +6,10 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import com.example.not_bored.R
 import com.example.not_bored.databinding.FragmentHomeBinding
-import com.example.not_bored.viewmodel.ActivityViewModel
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var binding: FragmentHomeBinding

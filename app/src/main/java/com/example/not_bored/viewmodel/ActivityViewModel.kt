@@ -1,7 +1,6 @@
 package com.example.not_bored.viewmodel
 
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.not_bored.models.ActivityModel
 import com.example.not_bored.utils.ActivitiesList

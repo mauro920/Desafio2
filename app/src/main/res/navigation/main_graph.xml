@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.not_bored.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_termsFragment"
+            app:destination="@id/termsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_activitiesListFragment"
+            app:destination="@id/activitiesListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/termsFragment"
+        android:name="com.example.not_bored.ui.home.TermsFragment"
+        android:label="fragment_terms"
+        tools:layout="@layout/fragment_terms" />
+    <fragment
+        android:id="@+id/activityDetailsFragment"
+        android:name="com.example.not_bored.ui.activities.ActivityDetailsFragment"
+        android:label="fragment_activity_details"
+        tools:layout="@layout/fragment_activity_details" >
+        <argument
+            android:name="activityName"
+            app:argType="string" />
+        <argument
+            android:name="participants"
+            app:argType="string" />
+        <argument android:name="price"
+            app:argType="float" />
+        <argument
+            android:name="category"
+            app:argType="string" />
+        <argument
+            android:name="random"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/activitiesListFragment"
+        android:name="com.example.not_bored.ui.activities.ActivitiesListFragment"
+        android:label="fragment_activities_list"
+        tools:layout="@layout/fragment_activities_list" >
+        <action
+            android:id="@+id/action_activitiesListFragment_to_activityDetailsFragment"
+            app:destination="@id/activityDetailsFragment" />
+    </fragment>
+</navigation>

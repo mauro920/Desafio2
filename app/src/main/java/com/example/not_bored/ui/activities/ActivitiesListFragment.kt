@@ -1,5 +1,6 @@
 package com.example.not_bored.ui.activities
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.*
@@ -15,18 +16,19 @@ import androidx.navigation.fragment.findNavController
 class ActivitiesListFragment : Fragment(R.layout.fragment_activities_list),
     ActivityAdapter.OnActivityCLickListener {
     private lateinit var binding: FragmentActivitiesListBinding
-    private val activityViewModel by viewModels<ActivityViewModel>()
+    private val activityViewModel: ActivityViewModel by activityViewModels()
     private lateinit var participants: String
-    private var activities: List<ActivityModel> = activityViewModel.getActivitiesList(participants)
+    private lateinit var activities: List<ActivityModel>
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        participants = activityViewModel.getParticipants()
+        activities = activityViewModel.getActivitiesList(participants)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentActivitiesListBinding.bind(view)
-        setFragmentResultListener("requestKey"){requestKey, bundle ->
-            val result = bundle.getString("bundleKey")
-            participants = result!!
-        }
         initUI()
     }
 

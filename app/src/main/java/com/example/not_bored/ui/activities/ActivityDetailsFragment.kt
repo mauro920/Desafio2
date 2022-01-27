@@ -1,35 +1,39 @@
 package com.example.not_bored.ui.activities
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.not_bored.R
 import com.example.not_bored.databinding.FragmentActivityDetailsBinding
 import com.example.not_bored.models.ActivityModel
-import com.example.not_bored.utils.ActivitiesList
 import com.example.not_bored.viewmodel.ActivityViewModel
 
 class ActivityDetailsFragment : Fragment(R.layout.fragment_activity_details) {
     private lateinit var binding: FragmentActivityDetailsBinding
-    private val activityViewModel by viewModels<ActivityViewModel>()
+    private val activityViewModel: ActivityViewModel by activityViewModels()
     private lateinit var participants: String
     private val args: ActivityDetailsFragmentArgs by navArgs()
-    private var activities: List<ActivityModel> = ActivitiesList.activitiesList.filter { it.participants == participants }
+    private lateinit var activities: List<ActivityModel>
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        participants = activityViewModel.getParticipants()
+        activities = activityViewModel.getActivitiesList(participants)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentActivityDetailsBinding.bind(view)
-        setFragmentResultListener("requestKey") { requestKey, bundle ->
-            val result = bundle.getString("bundleKey")
-            participants = result!!
-        }
+
         initUI()
     }
+
 
     private fun initUI() {
         binding.btnTry.setOnClickListener {
@@ -87,12 +91,14 @@ class ActivityDetailsFragment : Fragment(R.layout.fragment_activity_details) {
 
     private fun goRandom() {
         val randomAct = activityViewModel.getRandom(activities)
-        setUpArgs(
-            randomAct.category,
+        val action = ActivityDetailsFragmentDirections.actionActivityDetailsFragmentSelf(
             randomAct.activityName,
-            randomAct.price,
             randomAct.participants,
+            randomAct.price,
+            randomAct.category,
             true
         )
+        findNavController().navigate(action)
+        getAndShowArgs()
     }
 }

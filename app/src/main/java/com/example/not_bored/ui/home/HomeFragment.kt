@@ -1,26 +1,38 @@
 package com.example.not_bored.ui.home
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.not_bored.R
 import com.example.not_bored.databinding.FragmentHomeBinding
+import com.example.not_bored.viewmodel.ActivityViewModel
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var binding: FragmentHomeBinding
+    private val viewModel: ActivityViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
+
+        val sharedPreferences = activity?.getSharedPreferences(
+            getString(R.string.shared_prefs),
+            Context.MODE_PRIVATE
+        )
+        if (sharedPreferences != null) {
+            viewModel.setSharedPreferences(sharedPreferences)
+        }
+
         with(binding) {
             btnStart.setOnClickListener {
                 val result = etParticipants.text.toString()
-                setFragmentResult("requestKey", bundleOf("bundleKey" to result))
+                viewModel.addParticipants(result)
                 findNavController().navigate(R.id.action_homeFragment_to_activitiesListFragment)
             }
             tvConditions.setOnClickListener { goToTerms() }

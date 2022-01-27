@@ -41,6 +41,9 @@
         <argument
             android:name="random"
             app:argType="boolean" />
+        <action
+            android:id="@+id/action_activityDetailsFragment_self"
+            app:destination="@id/activityDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/activitiesListFragment"

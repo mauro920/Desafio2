@@ -40,10 +40,15 @@ class ActivitiesListFragment : Fragment(R.layout.fragment_activities_list),
     }
 
     private fun setRecycler() {
-        with(binding.rvActivities) {
-            layoutManager = LinearLayoutManager(context)
-            adapter = ActivityAdapter(activities, this@ActivitiesListFragment)
+        if (activities.isNotEmpty()){
+            with(binding.rvActivities) {
+                layoutManager = LinearLayoutManager(context)
+                adapter = ActivityAdapter(activities, this@ActivitiesListFragment)
+            }
+        } else {
+            binding.noParts.visibility = View.VISIBLE
         }
+
     }
 
     override fun onActivityClick(activity: ActivityModel) {
